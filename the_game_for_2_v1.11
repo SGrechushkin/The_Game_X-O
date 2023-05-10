@@ -1,0 +1,225 @@
+"""
+This module implements a Tic-Tac-Toe game.
+
+Author: Sergii Grechushkin
+Date: 05/10/23
+
+The module contains functions to display the game board, handle player turns, 
+validate player inputs,
+check for win conditions, and manage the overall game flow.
+"""
+
+
+def main():
+    """
+The module contains functions to display the game board, handle player turns, 
+validate player inputs,
+check for win conditions, and manage the overall game flow.
+"""
+    game_list = "  {}  |  {}  |  {}  "
+
+    def display(board):
+        """
+    This function displays the Tic-Tac-Toe game board.
+
+    The function takes a list representing the current state 
+    of the game board and prints it in a formatted way.
+    It provides a visual representation of the board to the players.
+    """
+        print("1    |2    |3    ")
+        print(game_list.format(board[0], board[1], board[2]))
+        print("     |     |     ")
+        print("-----------------")
+        print("4    |5    |6    ")
+        print(game_list.format(board[3], board[4], board[5]))
+        print("     |     |     ")
+        print("-----------------")
+        print("7    |8    |9    ")
+        print(game_list.format(board[6], board[7], board[8]))
+        print("     |     |     ")
+
+    def beginning():
+        """
+    This function handles the beginning of the game by prompting the user to start or quit.
+
+    The function asks the user if they want to start the game and validates their input.
+    If the user chooses to start, it returns True; otherwise, it returns False.
+    """
+        start = "WRONG"
+
+        while start.lower() not in ['y', 'n', 'yes', 'no']:
+            start = input("Start the game? (Yes or No) ")
+
+            if start.lower() not in ['y', 'n', 'yes', 'no']:
+                print('Sorry, I dont understand, please choose Yes or No')
+
+        if start.lower() in ('Yes', 'y'):
+            return True
+        else:
+            return False
+
+    def x_or_o():
+        """
+    This function handles the player's choice of X or O symbol.
+
+    The function prompts the player to choose between X and O symbols and validates their input.
+    It returns True if the player chooses X, and False if the player chooses O.
+    """
+        choice = "WRONG"
+
+        while choice.lower() not in ['x', 'o']:
+            choice = input("Do you want to be X or O ? (X starts first)")
+
+            if choice.lower() not in ['x', 'o']:
+                print('Choose between X and O')
+
+        if choice.lower() == 'x':
+            print("Player X:starts first")
+            return True
+
+        if choice.lower() == 'o':
+            print("Player O:starts first")
+            return False
+
+    def choose_position_x():
+        """
+    This function handles the player's choice of position when playing as X.
+
+    The function prompts the player playing as X to choose their 
+    next position on the game board (1-9) and validates their input.
+    It updates the game board with the player's choice and displays the updated board.
+    """
+        choose = "WRONG"
+        acceptable_range = range(1, 10)
+        within_range = False
+
+        while choose.isdigit() is False or within_range is False:
+            choose = input("Player 'X' choose your next position (1-9): ")
+
+            if choose.isdigit() is False:
+                print('Sorry that is not a digit!')
+
+            if choose.isdigit() is True:
+                if int(choose) in acceptable_range and board[int(choose) - 1] == " ":
+                    within_range = True
+                else:
+                    within_range = False
+                    print('Sorry, your choice is not acceptable!')
+
+        board[int(choose) - 1] = "X"
+        display(board)
+
+    def choose_position_o():
+        """
+    This function handles the player's choice of position when playing as O.
+
+    The function prompts the player playing as O to choose their 
+    next position on the game board (1-9) and validates their input.
+    It updates the game board with the player's choice and displays the updated board.
+    """
+        choose = "WRONG"
+        acceptable_range = range(1, 10)
+        within_range = False
+
+        while choose.isdigit() is False or within_range is False:
+            choose = input("Player 'O' choose your next position (1-9): ")
+
+            if choose.isdigit() is False:
+                print('Sorry that is not a digit!')
+
+            if choose.isdigit() is True:
+                if int(choose) in acceptable_range and board[int(choose) - 1] == " ":
+                    within_range = True
+                else:
+                    within_range = False
+                    print('Sorry, your choice is not acceptable!')
+
+        board[int(choose) - 1] = "O"
+        display(board)
+
+    def win_condition_x():
+        """ 
+    This function checks if the player X has won the game.
+
+    The function examines the current state of the game board and 
+    determines if player X has achieved a winning condition.
+    It returns True if player X has not won yet, and False if player X has won the game.
+    """
+        if board[0] == "X" and board[1] == "X" and board[2] == "X":
+            return False
+        elif board[3] == "X" and board[4] == "X" and board[5] == "X":
+            return False
+        elif board[6] == "X" and board[7] == "X" and board[8] == "X":
+            return False
+        elif board[0] == "X" and board[3] == "X" and board[6] == "X":
+            return False
+        elif board[1] == "X" and board[4] == "X" and board[7] == "X":
+            return False
+        elif board[2] == "X" and board[5] == "X" and board[8] == "X":
+            return False
+        elif board[0] == "X" and board[4] == "X" and board[8] == "X":
+            return False
+        elif board[2] == "X" and board[4] == "X" and board[6] == "X":
+            return False
+
+        else:
+            return True
+
+    def win_condition_o():
+        """This function checks if the player O has won the game.
+
+    The function examines the current state of the game board and 
+    determines if player O has achieved a winning condition.
+    It returns True if player O has not won yet, and False if player O has won the game."""
+        if board[0] == "O" and board[1] == "O" and board[2] == "O":
+            return False
+        elif board[3] == "O" and board[4] == "O" and board[5] == "O":
+            return False
+        elif board[6] == "O" and board[7] == "O" and board[8] == "O":
+            return False
+        elif board[0] == "O" and board[3] == "O" and board[6] == "O":
+            return False
+        elif board[1] == "O" and board[4] == "O" and board[7] == "O":
+            return False
+        elif board[2] == "O" and board[5] == "O" and board[8] == "O":
+            return False
+        elif board[0] == "O" and board[4] == "O" and board[8] == "O":
+            return False
+        elif board[2] == "O" and board[4] == "O" and board[6] == "O":
+            return False
+
+        else:
+            return True
+
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    game_on = beginning()
+
+    if game_on is True:
+        player_choice = x_or_o()
+        display(board)
+
+    while game_on is True:
+
+        if win_condition_x() is False:
+            game_on = False
+            print("Player 'X' is the winner!")
+        elif win_condition_o() is False:
+            game_on = False
+            print("Player 'O' is the winner!")
+        else:
+            if player_choice:  # Хід гравця X
+                choose_position_x()
+                player_choice = False
+            else:  # Хід гравця O
+                choose_position_o()
+                player_choice = True
+
+        if not game_on:
+            board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+            game_on = beginning()
+
+
+if __name__ == "__main__":
+    main()
+
+
