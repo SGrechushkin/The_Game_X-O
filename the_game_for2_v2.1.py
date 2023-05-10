@@ -213,10 +213,10 @@ check for win conditions, and manage the overall game flow.
             game_on = False
             print("Player 'O' is the winner!")
         else:
-            if player_choice:  # Хід гравця X
+            if player_choice:  #  Player X's turn
                 choose_position_x()
                 player_choice = False
-            else:  # Хід гравця O
+            else:  #  Player O's turn 
                 choose_position_o()
                 player_choice = True
 
